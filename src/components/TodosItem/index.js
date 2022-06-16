@@ -8,7 +8,7 @@ const TodosItem = (props) => {
         <ul>
         <li>{id}</li>
         <li>{title}</li>
-        <li>{completed.toString()}</li>
+        <li style={{color:completed?"green":"red"}}>{completed.toString()}</li>
         </ul>
     </div>
 )}
