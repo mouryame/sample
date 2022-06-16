@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from "react"
+import TodosItem from './components/TodosItem/index';
+import "./App.css"
 
-function App() {
+
+const App = () => {
+  const [todosList, setTodosList] = useState([])
+  /**
+   * if an arrow function has only one arguement no need for funtional paranthesis and only one return statement no need for curly bracis
+   */
+ // is it best to use promise instead of async await // q to charan
+ /**
+  * fetch(url).then((res)=>{
+  * setTodosList(res.json)
+  * })
+  * .catch((err)=>{
+  * throw new error(message:"error in getting data")})
+  */
+  useEffect(() => {
+  
+  const url = " https://jsonplaceholder.typicode.com/todos";
+  
+  const fetchData = async () => {
+      const response = await fetch(url);
+      const dataArr = await response.json();
+      setTodosList(dataArr);
+    };
+  fetchData();
+}, []);
+
+
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='body-format'>
+    {
+    todosList.map(todosObject => <TodosItem todosObject = {todosObject} />)
+    }
     </div>
   );
 }
